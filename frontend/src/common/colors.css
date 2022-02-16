@@ -1,0 +1,9 @@
+@value makerBlack: black;
+@value makerWhite: white;
+@value makerLightLemon: #FAFAF4;
+@value makerLightDarkLemon:#ecece5;
+@value makerOrange:#ec9a71;
+@value makerDarkBlue:#2b2e4a;
+@value makerLightPink:#FBF7F3;
+@value makerShadow: rgba(217, 217, 217, 1);
+@value makerColorful: linear-gradient(166deg, rgba(237, 193, 211, 1) 0%,rgba(212, 149, 161, 1) 60%, rgba(162, 63, 63, 1) 100%, rgba(127, 188, 242, 1) 100%);

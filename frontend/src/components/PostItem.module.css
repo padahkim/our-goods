@@ -1,0 +1,12 @@
+.container {
+  flex-basis: 300px;
+}
+
+.section {
+  margin: 1rem;
+}
+
+.img {
+  width: 365px;
+  height: 350px;
+}

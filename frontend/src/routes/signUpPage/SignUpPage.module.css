@@ -1,0 +1,95 @@
+@value makerShadow,makerWhite,makerDarkBlue from '../../common/colors.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.register {
+  max-width: 35rem;
+  margin: auto;
+  width: 95%;
+  height: 80%;
+  background: makerWhite;
+  padding: 3em;
+  margin: 0.3rem auto;
+  border-radius: 10px;
+  box-shadow: makerShadow;
+  padding: 1rem;
+  color: makerDarkBlue;
+  font-size: 1rem;
+  text-align: left;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.register h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.register input {
+  width: 100%;
+  height: 3rem;
+  outline: none;
+  padding: 1rem;
+  border: 1px solid #707070;
+  transition: 0.3s;
+}
+.register input:valid,
+.register input:focus {
+  border: 1px solid makerDarkBlue;
+}
+.register .center {
+  display: flex;
+  align-items: center;
+}
+.register .flex {
+  display: flex;
+  flex-direction: column;
+}
+.register .flex .container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  margin-bottom: 1rem;
+}
+.register .flex .container .item:first-child {
+  margin-right: 1rem;
+}
+.register .flex .container .item .check {
+  height: 100%;
+  margin-left: 1rem;
+  padding: 5px 15px;
+  background: makerDarkBlue;
+  color: white;
+  font-size: 12px;
+  transition: 0.3s;
+}
+.register .flex .container .item .check:hover {
+  background: makerWhite;
+  color: makerDarkBlue;
+}
+.register .flex .container .item select {
+  height: 3rem;
+  padding: 1rem;
+  border: 1px solid makerDarkBlue;
+}
+.register .submit {
+  width: 100%;
+  height: 3rem;
+  color: makerWhite;
+  border: none;
+  border: 1px solid makerDarkBlue;
+  background: makerDarkBlue;
+  transition: 0.3s;
+}
+.register .flex .container:last-child {
+  margin: 0;
+}
+.register .submit:hover {
+  width: 100%;
+  height: 3rem;
+  border: none;
+  border: 1px solid makerDarkBlue;
+  color: makerDarkBlue;
+  background: makerWhite;
+}

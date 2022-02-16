@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ourgoods.user.dao.UserDAO">
+  <resultMap id="memResult" type="userVO">
+   	  <result property="code" column="user_code" />
+      <result property="id" column="user_id" />
+      <result property="pw" column="user_pw" />
+      <result property="name" column="user_name" />
+      <result property="email" column="user_email" />
+      <result property="phone" column="user_phone" />
+      <result property="grade" column="user_grade" />
+      <result property="joinDate" column="user_created" />
+      <result property="zonecode" column="user_addr1" />
+      <result property="address" column="user_addr2" />
+      <result property="detailAddress" column="user_addr3" />
+   </resultMap> 
+	
+   <select id="loginById"  resultMap="memResult" resultType="userVO"  parameterType="userVO" >
+	<![CDATA[
+		select * from usertbl
+		where user_id=#{id} 
+	]]>
+  </select>
+  
+  <update id="modInfo"  parameterType="userVO">
+     <![CDATA[
+	     update usertbl
+	     set user_pw=#{pw}, user_name=#{name}, user_email=#{email}, user_phone=#{phone}
+	     where
+	     user_id=#{id}
+      ]]>      
+   </update> 
+     
+   <delete id="removeUser"  parameterType="String">
+	<![CDATA[
+	   delete from  usertbl
+	   where
+	   user_id=#{id}
+	]]>      
+  </delete>
+  
+  <select id="selectInfo" resultMap="memResult" parameterType="userVO" resultType="userVO">
+	<![CDATA[
+		select * from usertbl
+		where user_id=#{id}		
+	]]>
+  </select>
+  
+  <select id="userList" resultMap="memResult"   >
+      <![CDATA[
+        select * from usertbl order by user_created
+      ]]>
+   </select>
+
+   <insert id="insertUser"  parameterType="userVO" useGeneratedKeys="true" keyProperty="code">
+		<![CDATA[
+		 insert into usertbl (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)
+		 values(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{zonecode}, #{address}, #{detailAddress})
+		]]>      
+	</insert>
+	
+	<select id="checkById"  resultType="int" parameterType="String">
+	<![CDATA[
+		SELECT COUNT(*) FROM usertbl 
+		WHERE user_id = #{id}
+	]]>
+  </select>
+   
+</mapper>

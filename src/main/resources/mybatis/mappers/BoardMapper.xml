@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ourgoods.board.dao.BoardDAO">
+	<resultMap type="boardVO" id="boardResult">
+		<result property="pcode" column="post_code" />
+		<result property="ptitle" column="post_title" />
+		<result property="pcontent" column="post_content" />
+		<result property="price" column="post_price" />
+		<result property="pnumber" column="post_number" />
+		<result property="scode" column="seller_code" />
+		<result property="cacode" column="category_code" />
+		<result property="stcode" column="post_status_code" />
+		<result property="tcode" column="town_code" />
+		<result property="insertTime" column="insert_time" />
+	</resultMap>
+	
+	<sql id="boardColumns">
+		post_code,
+		post_title,
+		post_content,
+		post_price,
+		post_number,
+		seller_code,
+		category_code,
+		post_status_code,
+		town_code,
+		insert_time
+	</sql>
+	
+	<!-- 게시글 목록 -->
+	<select id="selectPostList" parameterType="boardVO" resultMap="boardResult">
+	SELECT *
+	FROM post
+	ORDER BY insert_time DESC, post_code DESC
+	</select>
+	
+	<!-- 게시글 추가 -->
+	<insert id="insertPost" parameterType="boardVO" useGeneratedKeys="true" keyProperty="pcode">
+	INSERT INTO post ( <include refid="boardColumns" /> )
+	VALUES (
+		#{pcode}, #{ptitle}, #{pcontent}, #{price},
+		0, #{scode}, #{cacode}, 0, #{tcode}, current_date()
+	)
+	</insert>
+	
+	<!-- 게시글 상세보기 -->
+	<select id="selectPostOne" resultMap="boardResult">
+	SELECT *
+	FROM post
+	WHERE post_code = #{pcode}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="boardVO">
+	UPDATE post
+	SET post_title = #{ptitle}, post_content = #{pcontent}, post_price = #{price},
+	category_code = #{cacode}, post_status = #{stcode}
+	WHERE post_code = #{pcode}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost">
+	DELETE
+	FROM post
+	WHERE post_code = #{pcode}
+	</delete>
+	
+	<select id="selectTotalCount" resultType="int">
+	SELECT count(*)
+	FROM post
+	</select>
+</mapper>

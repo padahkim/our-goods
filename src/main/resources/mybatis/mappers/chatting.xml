@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ourgoods.chat.dao.MessageDAO">
+  <resultMap id="chatResult" type="MessageMap">
+   	  <result property="username" column="user_name" />
+   	  <result property="content" column="content" />
+   	  <result property="buyusercode" column="buyuser_code" />
+   	  
+   	  <!-- <result property="receivername" column="receiver_name" /> -->
+   	  <result property="filename" column="filename" />
+   	  <result property="postcode" column="post_code" />
+   	  <result property="sellername" column="seller_name" />
+   	  <result property="chatroomcode" column="chatRoom_code" />
+   	  
+      
+   </resultMap> 
+	
+
+   <insert id="addChatMessage"  parameterType="MessageMap" useGeneratedKeys="true" keyProperty="chatroomcode">
+		<![CDATA[
+		INSERT INTO 
+    	messagetbl(user_name, seller_name, post_code, filename, created_date)
+    	VALUES (#{username}, #{sellername}, #{postcode}, #{filename}, #{createdDate});
+		]]>      
+	</insert>
+	
+	<select id="selectChatList" resultType="messageMap" parameterType="String">
+		<![CDATA[
+		 select *
+		 from messagetbl
+		 where user_name=#{username} or seller_name=#{username}
+		 limit 1;
+		]]>    
+	</select>
+	
+	<select id="findByChatId" resultType="MessageMap">
+		<![CDATA[
+    	SELECT *
+    	FROM messagetbl
+    	WHERE post_code = #{postcode} AND
+    	user_name = #{username};
+    	]]>
+    </select>
+    
+     <select id="countByChatId" resultType="int">
+	    	SELECT COUNT(*)
+	    	FROM messagetbl
+	    	WHERE post_code = #{postcode} AND
+	    	user_name = #{username};
+    </select> 
+    
+   <insert id="addChatRoom" parameterType="MessageMap"
+    	useGeneratedKeys="true" keyProperty="chatroomcode">
+    	INSERT INTO 
+    	messagetbl(chatRoom_code, user_name, seller_name, post_code, filename, created_date)
+    	VALUES (#{chatroomcode}, #{username}, #{sellername}, #{postcode}, #{filename}, #{createdDate});
+    </insert>
+    
+    <select id="getId" resultType="int">
+    	SELECT chatRoom_code
+    	FROM messagetbl
+    	WHERE post_code = #{postcode} AND
+    	user_name = #{username};
+    </select>
+    
+    <update id="updateFileName">
+    	UPDATE messagetbl
+    	SET filename = #{filename}
+    	WHERE chatRoom_code = #{chatroomcode};
+    </update>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ourgoods.board.dao.AttachDAO">
+	<resultMap type="attachVO" id="fileResult">
+		<result property="fileCode" column="file_code"/>
+		<result property="postCode" column="post_code"/>
+		<result property="filePath" column="file_path"/>
+		<result property="originalName" column="original_name"/>
+		<result property="saveName" column="save_name"/>
+		<result property="size" column="size"/>
+	</resultMap>
+	
+	
+	<sql id="fileColumns">
+		file_code,
+		post_code,
+		file_path,
+		original_name,
+		save_name,
+		size
+	</sql>
+	
+	<insert id="insertFile" parameterType="list">
+	INSERT INTO postFile ( <include refid="fileColumns" /> )
+	VALUES
+	<foreach collection="list" item="item" separator=",">
+	(
+		#{item.fileCode}, #{item.postCode},
+		#{item.filePath}, #{item.originalName}, #{item.saveName}, #{item.size}
+	)
+	</foreach>
+	</insert>
+	
+	<select id="selectFileOne">
+	SELECT *
+	FROM postFile
+	WHERE file_code = #{fileCode}
+	</select>
+	
+	<delete id="deleteFile" parameterType="int">
+	DELETE
+	FROM postFile
+	WHERE post_code = #{postCode}
+	</delete>
+	
+	<select id="selectFileList" resultMap="fileResult">
+	SELECT *
+	FROM postFile
+	WHERE post_code = #{postCode}
+	</select>
+	
+	<select id="selectFileTotalCount" parameterType="int" resultType="int">
+	SELECT count(*)
+	FROM postFile
+	WHERE post_code = #{postCode}
+	</select>
+	
+</mapper>

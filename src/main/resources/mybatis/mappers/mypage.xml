@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ourgoods.mypage.dao.MyPageDAO">
+	<resultMap id="wishResult" type="wishlistVO">
+      <result property="wucode" column="user_code" />
+      <result property="wpcode" column="post_code" />
+	  <result property="ptitle" column="post_title" />
+    </resultMap>
+    
+    <resultMap id="postResult" type="postVO">
+    	<result property="pcode" column="post_code"/>
+    	<result property="ptitle" column="post_title"/>
+    	<result property="scode" column="seller_code"/>
+    	<result property="stcode" column="post_status_code"/>
+    	<result property="cacode" column="post_status_code"/>
+    </resultMap>
+    
+    <resultMap id="chatroomResult" type="chatroomVO">
+    	<result property="cpcode" column="post_code"/>
+    	<result property="bucode" column="buyuser_code"/>
+    	<result property="crcode" column="chatRoom_code"/>
+    </resultMap>
+
+	<resultMap id="orderResult" type="orderVO">
+		<result property="bcode" column="buyuser_code"/>
+		<result property="opcode" column="post_code"/>
+		<result property="pcode" column="post_code"/>
+    	<result property="ptitle" column="post_title"/>
+	</resultMap>
+	
+	<resultMap id="searchResult" type="searchVO">
+        <result property="stitle" column="post_title"/>
+    </resultMap>
+	
+	<select id="selectselllist" resultMap="postResult" parameterType="postVO">
+		<![CDATA[
+			select * from posttbl
+			where seller_code=#{scode}		
+		]]>
+	</select>
+	
+	<select id="selectwishlist" resultMap="wishResult" parameterType="wishlistVO">
+		<![CDATA[
+			select post_title, wishlist_code, W.user_code,W.post_code from wishlisttbl W
+				inner join posttbl P
+				on W.post_code = P.post_code
+				where W.user_code=#{wucode};	
+		]]>
+	</select>
+	
+	<select id="chatroomlist" resultMap="chatroomResult" parameterType="chatroomVO">
+		<![CDATA[
+			select post_title from chatroomtbl C
+				inner join posttbl P
+				on C.post_code = P.post_code
+				where buyuser_code=#{bucode}		
+		]]>
+	</select>
+	
+	<select id="selectbuylist" resultMap="orderResult" parameterType="orderVO">
+		<![CDATA[
+			select post_title from ordertbl O
+				inner join posttbl P
+				on O.post_code = P.post_code
+				where buyuser_code=#{bcode}		
+		]]>
+	</select>
+	
+	 <select id="searchlist" resultMap="searchResult" parameterType="searchVO">
+        <![CDATA[
+            select post_title from posttbl
+            where post_title like '%'||'${keyword}'||'%'
+            or post_content like '%'||'${keyword}'||'%'
+        ]]>
+    </select>
+  	
+</mapper>
