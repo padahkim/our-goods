@@ -1,7 +1,5 @@
 ![image](https://user-images.githubusercontent.com/91414657/154486411-2f55afbc-8420-47c4-98dc-99425a22b877.png)
 
-![image](https://user-images.githubusercontent.com/91414657/154487294-f4e2da11-cb0b-4daf-97b9-b02679a38dd6.png)
-
 ![image](https://user-images.githubusercontent.com/91414657/154486580-4dd719a8-890b-4b38-9d24-dc6d3a814106.png)
 
 ![image](https://user-images.githubusercontent.com/91414657/154486166-38fe21b1-f8fb-4085-b24a-896bb1f413c2.png)
